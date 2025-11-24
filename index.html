@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Viwers</title>
     <link rel="stylesheet" href="assets/css/style.css">
-     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    
 </head>
 <body class="bg-[#0D192B]">
      <div class="min-h-screen  bg-center px-10 py-5 lg:px-28">
@@ -18,10 +18,10 @@
                 <!-- desktop view -->
                 <div class="hidden lg:flex flex-1 justify-end">
                     <ul class="flex gap-8 content-center">
-                        <li class="list-none inline-block px-5"><a href="#" class="text-white hover:text-red-500 transition block">Now Playing</a></li>
-                        <li class="list-none inline-block px-5"><a href="#" class="text-white hover:text-red-500 transition block">Popular</a></li>
-                        <li class="list-none inline-block px-5"><a href="#" class="text-white hover:text-red-500 transition block">Top Rated</a></li>
-                        <li class="list-none inline-block px-5"><a href="#" class="text-white hover:text-red-500 transition block">Upcoming</a></li>
+                        <li class="list-none inline-block px-5"><a href="#" class="nav-link text-white hover:text-red-500 transition block" data-category="now_playing">Now Playing</a></li>
+                        <li class="list-none inline-block px-5"><a href="#" class="nav-link text-white hover:text-red-500 transition block" data-category="popular">Popular</a></li>
+                        <li class="list-none inline-block px-5"><a href="#" class="nav-link text-white hover:text-red-500 transition block" data-category="top_rated">Top Rated</a></li>
+                        <li class="list-none inline-block px-5"><a href="#" class="nav-link text-white hover:text-red-500 transition block" data-category="upcoming">Upcoming</a></li>
                     </ul>
                 </div>
                 <!-- mobile view -->
@@ -34,54 +34,76 @@
                 <!-- mobile view drop down list -->
                 <div id="mobileMenu" class="hidden lg:hidden mt-4">
                     <ul class="flex flex-col gap-4 bg-[#1a2942] p-4 rounded-lg">
-                        <li><a href="#" class="text-white hover:text-red-500 transition block">Now Playing</a></li>
-                        <li><a href="#" class="text-white hover:text-red-500 transition block">Popular</a></li>
-                        <li><a href="#" class="text-white hover:text-red-500 transition block">Top Rated</a></li>
-                        <li><a href="#" class="text-white hover:text-red-500 transition block">Upcoming</a></li>
+                        <li><a href="#" class="mobile-nav-link text-white hover:text-red-500 transition block" data-category="now_playing">Now Playing</a></li>
+                        <li><a href="#" class="mobile-nav-link text-white hover:text-red-500 transition block" data-category="popular">Popular</a></li>
+                        <li><a href="#" class="mobile-nav-link text-white hover:text-red-500 transition block" data-category="top_rated">Top Rated</a></li>
+                        <li><a href="#" class="mobile-nav-link text-white hover:text-red-500 transition block" data-category="upcoming">Upcoming</a></li>
                     </ul>
                 </div>
             <!-- search bar -->
-            <div class="flex items-center gap-2 bg-[0D2851] px-6 py-4 rounded-2xl bg-[#0D2851] mt-5">
+            <div class="flex items-center gap-2 px-6 py-4 rounded-2xl bg-[#0D2851] mt-5">
                 <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
                 </svg>
-                 <input type="text" placeholder="Search for movies..." class="bg-transparent text-white text-lg placeholder-gray-500 outline-none w-full"/>
+                 <input  type="text" id="searchInput" placeholder="Search for movies..." class="relative bg-transparent text-white text-lg placeholder-gray-500 outline-none w-full"/>
+                 <div id="suggestionBox" class="fixed top-40  bg-[#0D2851] text-white rounded-lg shadow-xl w-80  hidden max-h-90 z-10" ></div>
             </div>
              <!-- categary buttons -->
             <div class="mt-8">
                 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-2 lg:flex gap-2 mt-5">
-                    <button class="category-btn active px-8 py-3 text-white bg-red-600 border-blue-500 rounded-3xl">All</button>
-                    <button class="category-btn px-8 py-3 text-white bg-[#0D2851] hover:bg-red-600 border-blue-500 rounded-3xl">Sci-Fi</button>
-                    <button class="category-btn px-8 py-3 text-white bg-[#0D2851] hover:bg-red-600 border-blue-500 rounded-3xl">Thriller</button>
-                    <button class="category-btn px-8 py-3 text-white bg-[#0D2851] hover:bg-red-600 border-blue-500 rounded-3xl">Adventure</button>
-                    <button class="category-btn px-8 py-3 text-white bg-[#0D2851] hover:bg-red-600 border-blue-500 rounded-3xl">Drama</button>
-                    <button class="category-btn px-8 py-3 text-white bg-[#0D2851] hover:bg-red-600 border-blue-500 rounded-3xl">Music</button>
-                    <button class="category-btn px-8 py-3 text-white bg-[#0D2851] hover:bg-red-600 border-blue-500 rounded-3xl">Mystery</button>
+                    <button class="category-btn active px-8 py-3 text-white bg-red-600 border-blue-500 rounded-3xl" data-genre="all">All</button>
+                    <button class="category-btn px-8 py-3 text-white bg-[#0D2851] hover:bg-red-600 border-blue-500 rounded-3xl" data-genre="878">Sci-Fi</button>
+                    <button class="category-btn px-8 py-3 text-white bg-[#0D2851] hover:bg-red-600 border-blue-500 rounded-3xl" data-genre="53">Thriller</button>
+                    <button class="category-btn px-8 py-3 text-white bg-[#0D2851] hover:bg-red-600 border-blue-500 rounded-3xl" data-genre="12">Adventure</button>
+                    <button class="category-btn px-8 py-3 text-white bg-[#0D2851] hover:bg-red-600 border-blue-500 rounded-3xl" data-genre="18">Drama</button>
+                    <button class="category-btn px-8 py-3 text-white bg-[#0D2851] hover:bg-red-600 border-blue-500 rounded-3xl" data-genre="10402">Music</button>
+                    <button class="category-btn px-8 py-3 text-white bg-[#0D2851] hover:bg-red-600 border-blue-500 rounded-3xl" data-genre="9648">Mystery</button>
                 </div>
             </div>
             <!-- Hero -->
             <div class="mt-12 relative">
-    <div class="h-64 lg:h-80 rounded-xl overflow-hidden relative">
-        <img 
-            src="assets/img/hero-cover.jpg" 
-            alt="Hero" 
-            class="w-full h-full object-cover"
-        />
-        <div class="absolute inset-0 flex items-center justify-center">
-            <div class="text-center">
-                <h1 class="text-3xl md:text-5xl font-bold text-white mb-4">
-                    Discover Amazing Movies
-                </h1>
-                <p class="text-xl text-gray-200">
-                    Watch the latest blockbusters today
-                </p>
+                <div class="h-64 lg:h-80 rounded-xl overflow-hidden relative">
+                    <img 
+                        src="assets/img/hero-cover.jpg" 
+                        alt="Hero" 
+                        class="w-full h-full object-cover"
+                    />
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="text-center">
+                            <h1 class="text-shadow-lg/60 text-3xl md:text-5xl font-bold text-white mb-4 ">
+                                Discover Amazing Movies
+                            </h1>
+                            <p class="text-xl text-gray-200 text-shadow-lg/30">
+                                Watch the latest blockbusters today
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</div>
+            <!-- Movie cards section -->
+             <section>
+                <h1 id="sectionTitle" class="text-white my-10 text-xl">Now Playing</h1>
+                <!-- Loading -->
+                <div id="loading" class="hidden text-center py-20">
+                    <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-red-500 border-t-transparent"></div>
+                    <p class="text-white mt-4">Loading movies...</p>
+                </div>
+                <!-- movie Container -->
+                <div id="movieContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-15 my-10">
+               
+                </div>
+                <!-- NO result -->
+                <div id="noResults" class="hidden text-center py-20">
+                    <p class="text-gray-400 text-xl">No movies Found</p>
+                </div>
+               
+             </section>
+
+               <div id="pagination" class="flex justify-center mt-10 space-x-2"></div>
+
         </div>
      </div>
-             
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>        
     <script src="assets/js/app.js"></script>
 </body>
 </html>
