@@ -79,7 +79,7 @@ console.log("jsloaded!!")
 
 
         return `
-        <div class="bg-[#0D2851] rounded-xl overflow-hidden border border-[#1a3d6b] hover:scale-105 transition cursor-pointer">
+        <div class="bg-[#0D2851] rounded-xl overflow-hidden border border-[#1a3d6b] hover:scale-105 transition cursor-pointer" onclick="openMovieDetails(${movie.id})">
                     <div class="h-96 bg-gray-700">
                         <img src="${posterPath}" alt="${movie.title}" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/300x450/1a2942/ffffff?text=No+Image'">
                     </div>
@@ -238,11 +238,10 @@ console.log("jsloaded!!")
                 // live search in whole database
                 searchMovies(query);
             });
-            
+
             async function showSuggestions(query) {
 
             const suggestionBox = document.getElementById("suggestionBox");
-
             const res = await fetch(`https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${query}`);
             const data = await res.json();
 
@@ -256,7 +255,7 @@ console.log("jsloaded!!")
             suggestionBox.innerHTML = data.results
                 .slice(0, 8)
                 .map(item => `
-                    <div class="px-4 py-2 cursor-pointer hover:bg-gray-200">
+                    <div class="px-4 py-2 cursor-pointer hover:bg-[#0D192B]">
                         ${item.title}
                     </div>
                 `).join("");
@@ -278,6 +277,10 @@ console.log("jsloaded!!")
 
         function hideSuggestions() {
             document.getElementById("suggestionBox").classList.add("hidden");
+        }
+
+        function openMovieDetails(movieId) {
+         window.location.href = `movie-details.html?id=${movieId}`;
         }
         // Initial load
         fetchMovies(currentCategory);
