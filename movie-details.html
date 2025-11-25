@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Details</title>
+     <link rel="shortcut icon" href="assets/img/favicon.svg" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-[#0D192B]">
+    <div class="min-h-screen px-5 lg:px-28 py-5">
+       <div clasa="mb-6">
+            <button onclick="goBack()" class="flex items-center text-white  gap-2 hover:text-red-500 transition"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                </svg>Back to Movies
+            </button>
+       </div>
+       <!-- loading circle -->
+       <div id="loading"class="text-center py-20" >
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-red-500 border-t-transparent"></div>
+            <p class="text-white mt-4">Loading movie details...</p>
+       </div>
+       <!-- movie details container -->
+        <div id="movieDetails" class="hidden">
+            <div id="backdrop" class="relative h-96 rounded-xl overflow-hidden mb-8 mt-5">
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0D192B] via-transparent to-transparent"></div>
+            </div>
+        </div>
+        <!-- info -->
+         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Poster -->
+                <div class="lg:col-span-1">
+                    <img id="poster" class="w-full rounded-xl shadow-2xl" alt="Movie Poster">
+                </div>
+
+                <!-- Details -->
+                <div class="lg:col-span-2 text-white">
+                    <h1 id="title" class="text-4xl font-bold mb-4">Anible</h1>
+                    
+                    <div class="flex flex-wrap items-center gap-4 mb-6">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <span id="rating" class="text-xl font-semibold"></span>
+                        </div>
+                        <span id="releaseDate" class="text-gray-400"></span>
+                        <span id="runtime" class="text-gray-400"></span>
+                    </div>
+
+                    <div id="genres" class="flex flex-wrap gap-2 mb-6"></div>
+
+                    <h2 class="text-2xl font-semibold mb-3">Overview</h2>
+                    <p id="overview" class="text-gray-300 text-lg leading-relaxed mb-8"></p>
+
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div>
+                            <h3 class="text-gray-400 mb-2">Original Language</h3>
+                            <p id="language" class="text-white font-semibold"></p>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-400 mb-2">Budget</h3>
+                            <p id="budget" class="text-white font-semibold"></p>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-400 mb-2">Revenue</h3>
+                            <p id="revenue" class="text-white font-semibold"></p>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-400 mb-2">Status</h3>
+                            <p id="status" class="text-white font-semibold"></p>
+                        </div>
+                        <div>
+                            <h3 class="text-gray-400 mb-2">Imdb ID</h3>
+                            <p id="imdbId" class="text-white font-semibold"></p>
+                        </div>
+                    </div>
+
+                    <!-- Cast Section -->
+                    <h2 class="text-2xl font-semibold mb-4">Cast</h2>
+                    <div id="cast" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-8"></div>
+
+                    <!-- Trailer Section -->
+                    <h2 class="text-2xl font-semibold mb-4">Trailer</h2>
+                    <div id="trailer" class="mb-8"></div>
+                </div>
+            </div>
+ <!-- Similar Movies -->
+            <div class="mt-12">
+                <h2 class="text-white text-2xl font-bold mb-6">Similar Movies</h2>
+                <div id="similarMovies" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"></div>
+            </div>
+        </div>
+    </div>
+
+
+  <script src="assets/js/details.js"></script>
+</body>
+</html>
