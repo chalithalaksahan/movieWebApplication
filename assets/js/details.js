@@ -84,6 +84,44 @@
                     </div>
                 `;
             });
+
+            const trailer = videos.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
+            if (trailer) {
+                document.getElementById('trailer').innerHTML = `
+                    <iframe 
+                        width="100%" 
+                        height="400" 
+                        src="https://www.youtube.com/embed/${trailer.key}" 
+                        frameborder="0" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                        allowfullscreen
+                        class="rounded-xl"
+                    ></iframe>
+                `;
+            } else {
+                document.getElementById('trailer').innerHTML = '<p class="text-gray-400">No trailer available</p>';
+            }
+            // Similar Movies
+            const similarContainer = document.getElementById('similarMovies');
+            similar.results.slice(0, 10).forEach(movie => {
+                const posterPath = movie.poster_path 
+                    ? `${IMAGE_BASE_URL}${movie.poster_path}` 
+                    : 'https://via.placeholder.com/200x300/1a2942/ffffff?text=No+Poster';
+                
+                similarContainer.innerHTML += `
+                    <div class="cursor-pointer hover:scale-105 transition" onclick="window.location.href='movie-details.html?id=${movie.id}'">
+                        <img src="${posterPath}" alt="${movie.title}" class="w-full h-64 object-cover rounded-lg mb-2">
+                        <p class="text-white text-sm font-semibold line-clamp-2">${movie.title}</p>
+                        <div class="flex items-center gap-1 text-xs text-gray-400">
+                            <svg class="w-3 h-3 text-yellow-400" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                            </svg>
+                            <span>${movie.vote_average.toFixed(1)}</span>
+                        </div>
+                    </div>
+                `;
+            });
+
         }
         
 
