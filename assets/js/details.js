@@ -69,7 +69,24 @@
                     </span>
                 `;
             });
+              // Cast
+            const castContainer = document.getElementById('cast');
+            credits.cast.slice(0, 8).forEach(actor => {
+                const profilePath = actor.profile_path 
+                    ? `${IMAGE_BASE_URL}${actor.profile_path}` 
+                    : 'https://via.placeholder.com/200x300/1a2942/ffffff?text=No+Photo';
+                
+                castContainer.innerHTML += `
+                    <div class="text-center">
+                        <img src="${profilePath}" alt="${actor.name}" class="w-full h-40 object-cover rounded-lg mb-2">
+                        <p class="text-white font-semibold text-sm">${actor.name}</p>
+                        <p class="text-gray-400 text-xs">${actor.character}</p>
+                    </div>
+                `;
+            });
         }
+        
+
           // Load movie details on page load
         if (movieId) {
             fetchMovieDetails();
